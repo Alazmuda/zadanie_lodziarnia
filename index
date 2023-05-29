@@ -1,1 +1,27 @@
-
+<html>
+<head>
+  <title>lodziarnia</title>
+</head>
+<body>
+  <b>Rodzaje lodów:</b><br>
+  wybierz VAT<select name="lody"/>
+  <option value="1"> czekoladowe
+  <option value="2"> śmietankowe
+  <option value="3"> waniliowe
+  <option value="4"> miętowe
+  <option value="5"> truskawkowe
+  <option value="6"> malinowe
+  <option value="7"> mango
+  <option value="8"> cytrynowe
+  <option value="9"> pistacjowe
+  </select><br><br>
+  <b>Podaj opcje dodatkowe:</b><br>
+  posypka &nbsp&nbsp&nbsp4zł<input type="checkbox" name="posypka" value=0 /><br>
+  polewa 7zł<input type="checkbox" name="polewa" value=0 /><br><br>
+  
+  
+  <!-- <input type="button" value="Oblicz....." onClick="obliczanie(this.form)"/><br><br> -->
+  <input type="button" value="Oblicz....." onClick="obliczanie(this.form)"/><br><br>
+  </form>
+</body>
+</html>
