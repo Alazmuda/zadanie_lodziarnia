@@ -4,7 +4,7 @@
 </head>
 <body>
   <b>Rodzaje lodów:</b><br>
-  wybierz VAT<select name="lody"/>
+  wybierz smaki<select name="lody"/>
   <option value="1"> czekoladowe
   <option value="2"> śmietankowe
   <option value="3"> waniliowe
@@ -15,12 +15,23 @@
   <option value="8"> cytrynowe
   <option value="9"> pistacjowe
   </select><br><br>
+  
+  <b>Ilość gałek:</b><br>
+  wybierz ilość gałek<select name="gałki"/>
+  <option value="1"> 1
+  <option value="2"> 2
+  <option value="3"> 3
+  </select><br><br>
+
   <b>Podaj opcje dodatkowe:</b><br>
   posypka &nbsp&nbsp&nbsp4zł<input type="checkbox" name="posypka" value=0 /><br>
   polewa 7zł<input type="checkbox" name="polewa" value=0 /><br><br>
   
-  
-  <!-- <input type="button" value="Oblicz....." onClick="obliczanie(this.form)"/><br><br> -->
+  <b>Podaj rabat:</b><br>
+  rabat 0% <input type="radio" name="wybor" value=0 /><br><br>
+  rabat 10% <input type="radio" name="wybor" value=10 /><br><br>
+  rabat 20% <input type="radio" name="wybor" value=20 /><br><br>
+
   <input type="button" value="Oblicz....." onClick="obliczanie(this.form)"/><br><br>
   </form>
 </body>
