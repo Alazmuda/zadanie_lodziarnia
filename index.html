@@ -1,0 +1,127 @@
+<html>
+
+<head>
+    <title>lodziarnia</title>
+
+    <script type="text/javascript">
+        var zamowienie = {
+            smaki: {},
+            opcje: {},
+            rabat: 0
+        };
+
+        var cenaGalki = 3;
+
+        function dodajGalki() {
+            var smak = document.getElementById("smak");
+            var nazwaSmaku = smak.options[smak.selectedIndex].text;
+            var liczbaGalek = parseInt(document.getElementById("liczba-galek").value);
+            if (zamowienie.smaki[nazwaSmaku]) {
+                zamowienie.smaki[nazwaSmaku] += liczbaGalek;
+            } else {
+                zamowienie.smaki[nazwaSmaku] = liczbaGalek;
+            }
+            wyswietlZamowienie();
+        }
+
+        function dodajOpcje(element) {
+            var nazwa = element.name;
+            var cena = element.value;
+            if (element.checked) {
+                zamowienie.opcje[nazwa] = cena;
+            } else {
+                delete zamowienie.opcje[nazwa];
+            }
+
+            wyswietlZamowienie();
+        }
+
+        function dodajRabat(element) {
+            zamowienie.rabat = element.value;
+            wyswietlZamowienie();
+        }
+
+        function wyswietlZamowienie() {
+            var razem = 0;
+            var rachunek = document.getElementById("rachunek");
+            rachunek.innerHTML = "";
+            var smaki = Object.entries(zamowienie.smaki);
+
+            smaki.forEach(smak => {
+                razem += smak[1] * cenaGalki;
+                rachunek.innerHTML += smak[0] + " x" + smak[1] + "<br>";
+            });
+
+            var opcje = Object.entries(zamowienie.opcje);
+            opcje.forEach(opcja => {
+                razem += parseInt(opcja[1]);
+                rachunek.innerHTML += opcja[0] + " " + opcja[1] + "zł <br>";
+            });
+
+            if (zamowienie.rabat > 0) {
+                var rabat = (100 - zamowienie.rabat) / 100;
+                razem *= rabat;
+                rachunek.innerHTML += "Rabat: " + zamowienie.rabat + "%<br>";
+            }
+            if (razem > 0) {
+                rachunek.innerHTML += "-----------------------<br>";
+                rachunek.innerHTML += "RAZEM: " + razem.toFixed(2) + "zł <br>";
+            }
+
+        }
+
+        function wyswietlDane() {
+            var dane = new FormData(document.getElementById("dane"));
+            var wynik = document.getElementById("dane-zamawiajacego");
+            wynik.innerHTML = "<br><br><b>DANE</b><br>";
+            wynik.innerHTML += "Imię: " + dane.get('Imię') + "<br>";
+            wynik.innerHTML += "Nazwisko: " + dane.get('Nazwisko') + "<br>";
+            wynik.innerHTML += "E-mail: " + dane.get('E-mail') + "<br>";
+            wynik.innerHTML += "Miasto: " + dane.get('Miasto') + "<br>";
+            wynik.innerHTML += "Ulica: " + dane.get('Ulica') + "<br>";
+            wynik.innerHTML += "Dom/Mieszkanie: " + dane.get('DomMieszkanie') + "<br>";
+        }
+    </script>
+</head>
+
+<body style="background-image: url('bg.jpg'); background-size: cover; padding-left:10px;">
+    <p style="color:rgb(167, 23, 23); font-size:60px"><b>LODZIARNIA</b></p>
+
+    <div>
+        <b>Rodzaje lodów:</b><br> wybierz smak <br><select id="smak" />
+        <option value="1"> czekoladowe </option>
+        <option value="2"> śmietankowe </option>
+        <option value="3"> waniliowe </option>
+        <option value="4"> mango </option>
+        <option value="5"> truskawkowe </option>
+        </select><br><br>
+
+        <b>Ilość gałek:</b><br> wybierz liczbę gałek <input type="number" min="1" id="liczba-galek" />
+        <br><br>
+        <input type="button" onclick="dodajGalki()" value="Dodaj do zamówienia" /><br><br>
+
+
+        <b>Podaj opcje dodatkowe:</b><br> posypka 4zł<input type="checkbox" name="posypka" value="4" onchange="dodajOpcje(this)" /><br> polewa 7zł<input type="checkbox" name="polewa" value="7" onchange="dodajOpcje(this)" /><br><br>
+
+        <b>Podaj rabat:</b><br> rabat 0% <input type="radio" name="wybor" value=0 checked onchange="dodajRabat(this)" /><br><br> rabat 10% <input type="radio" name="wybor" value=10 onchange="dodajRabat(this)" /><br><br> rabat 20% <input type="radio" name="wybor"
+            value=20 onchange="dodajRabat(this)" /><br><br>
+        </form>
+    </div>
+    <div style="position: absolute; top: 135px; left: 480px;">
+        <b>ZAMÓWIENIE</b>
+        <div id="rachunek"></div>
+        <div id="dane-zamawiajacego"></div>
+    </div>
+
+    <br><br>
+    <form id="dane">
+        <b>DANE</b><br> Imię <input name="Imię"><br> Nazwisko <input name="Nazwisko"><br> E-mail <input name="E-mail"><br> Adres:
+        <br> Miasto <input name="Miasto"><br> Ulica <input name="Ulica"><br> Dom/Mieszkanie <input name="DomMieszkanie"><br>
+        <p>Komentarz:</p>
+        <textarea name="Komentarz" cols="40" rows="8" placeholder="Uwagi dotyczące zamówienia..."></textarea>
+        <br><br>
+        <input type="button" value="Zamów" onclick="wyswietlDane()">
+    </form>
+</body>
+
+</html>
